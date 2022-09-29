@@ -1,6 +1,5 @@
 //! This module contains the `Curve`/`CurveAffine` abstractions that allow us to
 //! write code that generalizes over a pair of groups.
-
 #[cfg(feature = "alloc")]
 use group::prime::{PrimeCurve, PrimeCurveAffine};
 #[cfg(feature = "alloc")]
@@ -13,6 +12,9 @@ use super::{FieldExt, Group};
 use alloc::boxed::Box;
 #[cfg(feature = "alloc")]
 use core::ops::{Add, Mul, Sub};
+
+#[cfg(feature = "gpu")]
+use ec_gpu::GpuName;
 
 /// This trait is a common interface for dealing with elements of an elliptic
 /// curve group in a "projective" form, where that arithmetic is usually more
@@ -101,6 +103,7 @@ pub trait CurveAffine:
     + ConditionallySelectable
     + ConstantTimeEq
     + From<<Self as PrimeCurveAffine>::Curve>
+    + GpuName
 {
     /// The scalar field of this elliptic curve.
     type ScalarExt: FieldExt;

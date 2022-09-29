@@ -735,6 +735,12 @@ macro_rules! new_curve_impl {
             }
         }
 
+        impl ec_gpu::GpuName for  $name_affine {
+            fn name() -> alloc::string::String {
+                ec_gpu::name!()
+            }
+        }
+
         impl Default for $name_affine {
             fn default() -> $name_affine {
                 $name_affine::identity()

@@ -1,6 +1,7 @@
 use core::fmt;
 use core::ops::{Add, Mul, Neg, Sub};
 
+use alloc::string::String;
 use ff::PrimeField;
 use rand::RngCore;
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq, CtOption};
@@ -781,6 +782,13 @@ impl ec_gpu::GpuField for Fq {
 
     fn modulus() -> alloc::vec::Vec<u32> {
         crate::fields::u64_to_u32(&MODULUS.0[..])
+    }
+}
+
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuName for Fq {
+    fn name() -> String {
+        ec_gpu::name!()
     }
 }
 
